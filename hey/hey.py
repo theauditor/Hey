@@ -1,21 +1,29 @@
 #!/usr/bin/python
 
+import coin
 #Import Readline module for the console.
 import readline
 
+import blend
+import calculate
 import download
 import sys
 import compression
-import rename
 import copy
-import what
-import go
-import tell
-import push
-import update
-import google
+import dice
 import directions
+import download
 import find
+import go
+import google
+import push
+import remove
+import rename
+import sys
+import tell
+import update
+import weather
+import what
 
 
 
@@ -26,7 +34,7 @@ class Console:
         def start(self):
             print "Welcome to Hey Console. Type 'quit' to exit."
             while(1):
-                string = raw_input("Hey>")
+                string = raw_input("Hey> ")
                 string = string.strip()
                 if string == 'quit':
                     exit()
@@ -41,35 +49,41 @@ class Hey:
     def __init__(self):
         self.keywords = {
         
-            "download":download.download,
-            "compress":compression.compress,
-            "decompress":compression.decompress,
-            "rename":rename.rename,
-            "copy":copy.copy,
-            "what":what.what,
-            "go":go.go,
-            "tell":tell.tell,
-            "push":push.push,
-            "pull":push.pull,
+            "blend" : blend.blend,
+            "calc" : calculate.calculate,
+            "calculate" : calculate.calculate,
             "clone":push.clone,
-            "update":update.update,
+            "coin":coin.coin,
+            "compress":compression.compress,
+            "copy":copy.copy,
+            "decompress":compression.decompress,
+            "dice":dice.dice,
+            "directions":directions.directions,
+            "download":download.download,
+            "find":find.find,
+            "go":go.go,
             "google":google.google,
             "googling":google.google, # Just a different possible word
-            "directions":directions.directions,
-            "find":find.find,
+            "pull":push.pull,
+            "push":push.push,
+            "remove":remove.remove,
+            "rename":rename.rename,
+            "tell":tell.tell,
+            "update":update.update,
+            "weather":weather.weather,
+            "what":what.what,
             }
     def setTerminal(self,val):
         #Will set value to the console variable
         #If console it 0 it is a terminal input else console
         console = val
         
-    def parse(self, string=0):
+    def parse(self, string=""):
         valid = False
         #Use input from sys.argv only if input given from terminal.
-        print string
         if self.console:
             string = sys.argv[1:]
-            print string
+
         for x in string:
             if x in self.keywords:
                 valid = True
@@ -78,7 +92,8 @@ class Hey:
         if not valid:
             print "Sorry, I didn't understand your command."
 
-
+def main():
+    Hey().parse()
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
@@ -86,4 +101,5 @@ if __name__ == "__main__":
         Cons = Console()
         Cons.start()
     else:
-        Hey().parse()
+        Hey().parse(sys.argv[1:])
+
